@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Homosapinizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .bg-glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+        }
+        
+        .bg-glass-dark {
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-blue-teal {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .toc-link {
+            transition: all 0.3s ease;
+        }
+        
+        .toc-link:hover {
+            color: #3b82f6;
+            transform: translateX(5px);
+        }
+        
+        .toc-link.active {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        
+        .section-content {
+            scroll-margin-top: 100px;
+        }
+    </style>
+</head>
+<body class="min-h-full bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-x-hidden">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow" style="animation-delay: 1s;"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-10 bg-glass border-b border-white/10">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-pen-fancy text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold gradient-blue-teal">Homosapinizer</h1>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-white/80 hover:text-white transition-colors">Home</a>
+                    <a href="#" class="text-white/80 hover:text-white transition-colors">About</a>
+                    <a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a>
+                    <a href="#" class="text-blue-400 font-medium">Privacy</a>
+                    <button class="btn-gradient px-6 py-2 rounded-full text-white font-medium">
+                        Try Now
+                    </button>
+                </div>
+                
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 container mx-auto px-6 py-20 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                <span class="gradient-blue-teal">Privacy Policy</span>
+            </h1>
+            <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto leading-relaxed">
+                Your privacy is our priority. Learn how we collect, use, and protect your information.
+            </p>
+            <div class="text-white/60">
+                <p>Last updated: Today</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="relative z-10 container mx-auto px-6 py-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-4 gap-12">
+                <!-- Table of Contents -->
+                <div class="lg:col-span-1">
+                    <div class="bg-glass p-6 sticky top-24">
+                        <h3 class="text-xl font-semibold gradient-blue-teal mb-6">Table of Contents</h3>
+                        <nav class="space-y-3">
+                            <a href="#overview" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">1. Overview</a>
+                            <a href="#information-we-collect" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">2. Information We Collect</a>
+                            <a href="#how-we-use" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">3. How We Use Information</a>
+                            <a href="#information-sharing" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">4. Information Sharing</a>
+                            <a href="#data-security" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">5. Data Security</a>
+                            <a href="#cookies" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">6. Cookies & Tracking</a>
+                            <a href="#your-rights" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">7. Your Rights</a>
+                            <a href="#data-retention" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">8. Data Retention</a>
+                            <a href="#international" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">9. International Users</a>
+                            <a href="#children" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">10. Children's Privacy</a>
+                            <a href="#changes" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">11. Policy Changes</a>
+                            <a href="#contact" class="toc-link block text-white/70 hover:text-blue-400 transition-colors">12. Contact Us</a>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="lg:col-span-3">
+                    <div class="space-y-12">
+                        <!-- Overview -->
+                        <div id="overview" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">1. Overview</h2>
+                            <div class="prose prose-invert max-w-none">
+                                <p class="text-white/80 text-lg leading-relaxed mb-4">
+                                    Welcome to Homosapinizer. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our AI text humanization service.
+                                </p>
+                                <p class="text-white/70 leading-relaxed">
+                                    By using Homosapinizer, you agree to the collection and use of information in accordance with this policy. We will not use or share your information with anyone except as described in this Privacy Policy.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Information We Collect -->
+                        <div id="information-we-collect" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">2. Information We Collect</h2>
+                            <div class="space-y-6">
+                                <div>
+                                    <h3 class="text-xl font-semibold text-blue-400 mb-3">Information You Provide</h3>
+                                    <ul class="text-white/80 space-y-2 list-disc list-inside">
+                                        <li>Text content you submit for humanization</li>
+                                        <li>Account information (email, username, password)</li>
+                                        <li>Payment information (processed securely by third-party providers)</li>
+                                        <li>Communication with our support team</li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold text-blue-400 mb-3">Automatically Collected Information</h3>
+                                    <ul class="text-white/80 space-y-2 list-disc list-inside">
+                                        <li>IP address and location data</li>
+                                        <li>Browser type and version</li>
+                                        <li>Device information and operating system</li>
+                                        <li>Usage patterns and feature interactions</li>
+                                        <li>Performance and error logs</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- How We Use Information -->
+                        <div id="how-we-use" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">3. How We Use Your Information</h2>
+                            <div class="text-white/80 space-y-4">
+                                <p class="text-lg leading-relaxed">We use your information to:</p>
+                                <ul class="space-y-3 list-disc list-inside">
+                                    <li><strong>Provide our service:</strong> Process and humanize your text content</li>
+                                    <li><strong>Improve our AI:</strong> Enhance our algorithms and accuracy (anonymized data only)</li>
+                                    <li><strong>Account management:</strong> Create and maintain your user account</li>
+                                    <li><strong>Customer support:</strong> Respond to your questions and provide assistance</li>
+                                    <li><strong>Security:</strong> Detect and prevent fraud, abuse, and security threats</li>
+                                    <li><strong>Analytics:</strong> Understand usage patterns to improve our service</li>
+                                    <li><strong>Communications:</strong> Send important updates and service notifications</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Information Sharing -->
+                        <div id="information-sharing" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">4. Information Sharing</h2>
+                            <div class="text-white/80 space-y-4">
+                                <p class="text-lg leading-relaxed mb-4">
+                                    <strong class="text-blue-400">We do not sell your personal information.</strong> We may share your information only in the following circumstances:
+                                </p>
+                                <ul class="space-y-3 list-disc list-inside">
+                                    <li><strong>Service providers:</strong> Trusted third parties who help us operate our service</li>
+                                    <li><strong>Legal requirements:</strong> When required by law or to protect our rights</li>
+                                    <li><strong>Business transfers:</strong> In case of merger, acquisition, or sale of assets</li>
+                                    <li><strong>With your consent:</strong> When you explicitly agree to share information</li>
+                                </ul>
+                                <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 mt-6">
+                                    <p class="text-blue-300 font-medium">
+                                        <i class="fas fa-shield-alt mr-2"></i>
+                                        Important: Your text content is processed temporarily and is not stored permanently on our servers.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data Security -->
+                        <div id="data-security" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">5. Data Security</h2>
+                            <div class="text-white/80 space-y-4">
+                                <p class="text-lg leading-relaxed">
+                                    We implement industry-standard security measures to protect your information:
+                                </p>
+                                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                                    <div class="bg-white/5 rounded-lg p-4">
+                                        <h4 class="font-semibold text-blue-400 mb-2">
+                                            <i class="fas fa-lock mr-2"></i>Encryption
+                                        </h4>
+                                        <p class="text-sm">All data is encrypted in transit and at rest using AES-256 encryption.</p>
+                                    </div>
+                                    <div class="bg-white/5 rounded-lg p-4">
+                                        <h4 class="font-semibold text-blue-400 mb-2">
+                                            <i class="fas fa-server mr-2"></i>Secure Infrastructure
+                                        </h4>
+                                        <p class="text-sm">Our servers are hosted in secure, SOC 2 compliant data centers.</p>
+                                    </div>
+                                    <div class="bg-white/5 rounded-lg p-4">
+                                        <h4 class="font-semibold text-blue-400 mb-2">
+                                            <i class="fas fa-user-shield mr-2"></i>Access Control
+                                        </h4>
+                                        <p class="text-sm">Strict access controls and regular security audits protect your data.</p>
+                                    </div>
+                                    <div class="bg-white/5 rounded-lg p-4">
+                                        <h4 class="font-semibold text-blue-400 mb-2">
+                                            <i class="fas fa-eye-slash mr-2"></i>Privacy by Design
+                                        </h4>
+                                        <p class="text-sm">We minimize data collection and implement privacy safeguards.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cookies -->
+                        <div id="cookies" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">6. Cookies & Tracking Technologies</h2>
+                            <div class="text-white/80 space-y-4">
+                                <p class="text-lg leading-relaxed">
+                                    We use cookies and similar technologies to enhance your experience:
+                                </p>
+                                <div class="space-y-4">
+                                    <div>
+                                        <h4 class="font-semibold text-blue-400 mb-2">Essential Cookies</h4>
+                                        <p class="text-sm">Required for basic functionality and security. Cannot be disabled.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-blue-400 mb-2">Analytics Cookies</h4>
+                                        <p class="text-sm">Help us understand how you use our service to improve performance.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-blue-400 mb-2">Preference Cookies</h4>
+                                        <p class="text-sm">Remember your settings and preferences for a better experience.</p>
+                                    </div>
+                                </div>
+                                <p class="text-white/70 text-sm mt-4">
+                                    You can manage cookie preferences through your browser settings or our cookie consent banner.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Your Rights -->
+                        <div id="your-rights" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">7. Your Rights</h2>
+                            <div class="text-white/80 space-y-4">
+                                <p class="text-lg leading-relaxed">You have the following rights regarding your personal information:</p>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-white/5 rounded-lg p-4">
+                                        <h4 class="font-semibold text-blue-400 mb-2">Access</h4>
+                                        <p class="text-sm">Request a copy of your personal data</p>
+                                    </div>
+                                    <div class="bg-white/5 rounded-lg p-4">
+                                        <h4 class="font-semibold text-blue-400 mb-2">Correction</h4>
+                                        <p class="text-sm">Update or correct inaccurate information</p>
+                                    </div>
+                                    <div class="bg-white/5 rounded-lg p-4">
+                                        <h4 class="font-semibold text-blue-400 mb-2">Deletion</h4>
+                                        <p class="text-sm">Request deletion of your personal data</p>
+                                    </div>
+                                    <div class="bg-white/5 rounded-lg p-4">
+                                        <h4 class="font-semibold text-blue-400 mb-2">Portability</h4>
+                                        <p class="text-sm">Export your data in a machine-readable format</p>
+                                    </div>
+                                    <div class="bg-white/5 rounded-lg p-4">
+                                        <h4 class="font-semibold text-blue-400 mb-2">Restriction</h4>
+                                        <p class="text-sm">Limit how we process your information</p>
+                                    </div>
+                                    <div class="bg-white/5 rounded-lg p-4">
+                                        <h4 class="font-semibold text-blue-400 mb-2">Objection</h4>
+                                        <p class="text-sm">Object to certain types of processing</p>
+                                    </div>
+                                </div>
+                                <p class="text-white/70 text-sm mt-4">
+                                    To exercise these rights, please contact us at privacy@Homosapinizer.com
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Data Retention -->
+                        <div id="data-retention" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">8. Data Retention</h2>
+                            <div class="text-white/80 space-y-4">
+                                <p class="text-lg leading-relaxed">We retain your information only as long as necessary:</p>
+                                <ul class="space-y-3 list-disc list-inside">
+                                    <li><strong>Text content:</strong> Processed temporarily and deleted immediately after humanization</li>
+                                    <li><strong>Account data:</strong> Retained while your account is active</li>
+                                    <li><strong>Usage analytics:</strong> Anonymized data retained for up to 2 years</li>
+                                    <li><strong>Support communications:</strong> Retained for 3 years for quality assurance</li>
+                                </ul>
+                                <div class="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mt-6">
+                                    <p class="text-green-300 font-medium">
+                                        <i class="fas fa-clock mr-2"></i>
+                                        Your submitted text is never permanently stored and is deleted from our systems within minutes of processing.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- International Users -->
+                        <div id="international" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">9. International Users</h2>
+                            <div class="text-white/80 space-y-6">
+                                <div>
+                                    <h3 class="text-xl font-semibold text-blue-400 mb-3">GDPR Compliance (EU Users)</h3>
+                                    <p class="leading-relaxed mb-3">
+                                        For users in the European Union, we comply with the General Data Protection Regulation (GDPR):
+                                    </p>
+                                    <ul class="space-y-2 list-disc list-inside text-sm">
+                                        <li>Lawful basis for processing your data</li>
+                                        <li>Right to withdraw consent at any time</li>
+                                        <li>Data Protection Officer available for inquiries</li>
+                                        <li>Right to lodge complaints with supervisory authorities</li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold text-blue-400 mb-3">CCPA Compliance (California Users)</h3>
+                                    <p class="leading-relaxed mb-3">
+                                        California residents have additional rights under the California Consumer Privacy Act (CCPA):
+                                    </p>
+                                    <ul class="space-y-2 list-disc list-inside text-sm">
+                                        <li>Right to know what personal information is collected</li>
+                                        <li>Right to delete personal information</li>
+                                        <li>Right to opt-out of the sale of personal information</li>
+                                        <li>Right to non-discrimination for exercising privacy rights</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Children's Privacy -->
+                        <div id="children" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">10. Children's Privacy</h2>
+                            <div class="text-white/80 space-y-4">
+                                <p class="text-lg leading-relaxed">
+                                    Homosapinizer is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13.
+                                </p>
+                                <p class="text-white/70 leading-relaxed">
+                                    If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately. We will take steps to remove such information from our systems.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Policy Changes -->
+                        <div id="changes" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">11. Changes to This Policy</h2>
+                            <div class="text-white/80 space-y-4">
+                                <p class="text-lg leading-relaxed">
+                                    We may update this Privacy Policy from time to time. We will notify you of any changes by:
+                                </p>
+                                <ul class="space-y-2 list-disc list-inside">
+                                    <li>Posting the new Privacy Policy on this page</li>
+                                    <li>Updating the "Last updated" date</li>
+                                    <li>Sending you an email notification for significant changes</li>
+                                    <li>Displaying a prominent notice on our website</li>
+                                </ul>
+                                <p class="text-white/70 leading-relaxed">
+                                    Your continued use of Homosapinizer after any changes indicates your acceptance of the updated Privacy Policy.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Contact -->
+                        <div id="contact" class="section-content bg-glass p-8 hover-lift">
+                            <h2 class="text-3xl font-bold gradient-blue-teal mb-6">12. Contact Us</h2>
+                            <div class="text-white/80 space-y-6">
+                                <p class="text-lg leading-relaxed">
+                                    If you have any questions about this Privacy Policy or our privacy practices, please contact us:
+                                </p>
+                                
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="bg-white/5 rounded-lg p-6">
+                                        <h4 class="font-semibold text-blue-400 mb-4">General Inquiries</h4>
+                                        <div class="space-y-2 text-sm">
+                                            <p><i class="fas fa-envelope mr-2 text-blue-400"></i> privacy@Homosapinizer.com</p>
+                                            <p><i class="fas fa-globe mr-2 text-blue-400"></i> www.Homosapinizer.com</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-white/5 rounded-lg p-6">
+                                        <h4 class="font-semibold text-blue-400 mb-4">Data Protection Officer</h4>
+                                        <div class="space-y-2 text-sm">
+                                            <p><i class="fas fa-envelope mr-2 text-blue-400"></i> dpo@Homosapinizer.com</p>
+                                            <p><i class="fas fa-phone mr-2 text-blue-400"></i> +1 (555) 123-4567</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-6">
+                                    <h4 class="font-semibold text-blue-300 mb-3">Response Time</h4>
+                                    <p class="text-sm text-blue-200">
+                                        We aim to respond to all privacy-related inquiries within 30 days. For urgent matters, please mark your email as "URGENT - Privacy Request."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 bg-glass border-t border-white/10 mt-20">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-pen-fancy text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold gradient-blue-teal">Homosapinizer</h1>
+                </div>
+                
+                <div class="flex items-center space-x-8 text-white/60">
+                    <a href="#" class="hover:text-white transition-colors">Home</a>
+                    <a href="#" class="hover:text-white transition-colors">About</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 mt-8 pt-8 text-center text-white/50">
+                <p>&copy; 2024 Homosapinizer. All rights reserved. Your privacy is our priority.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for table of contents
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update active link in table of contents
+        function updateActiveLink() {
+            const sections = document.querySelectorAll('.section-content');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    currentSection = '#' + section.id;
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Listen for scroll events
+        window.addEventListener('scroll', updateActiveLink);
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateActiveLink();
+            
+            // Add fade-in animation to hero text
+            const heroTitle = document.querySelector('section h1');
+            if (heroTitle) {
+                heroTitle.style.opacity = '0';
+                setTimeout(() => {
+                    heroTitle.style.opacity = '1';
+                    heroTitle.classList.add('animate-fade-in-up');
+                }, 500);
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98d8d132d04d741b',t:'MTc2MDI5NTM4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
