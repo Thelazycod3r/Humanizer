@@ -119,6 +119,32 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
         }
+
+        .spinner {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            animation: blink-dots 1.4s infinite;
+        }
+        
+        .spinner:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .spinner:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes blink-dots {
+            0%, 80%, 100% {
+                opacity: 0.3;
+            }
+            40% {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body class="min-h-full bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-x-hidden">
@@ -191,14 +217,28 @@
                     oninput="updateWordCount()"
                 ></textarea>
                 
+                <div class="mt-3 text-sm text-yellow-400/70" id="wordWarning">
+                    <i class="fas fa-info-circle mr-2"></i>Text must have at least 30 words to humanize
+                </div>
+                
                 <div class="flex items-center justify-between mt-4">
-                    <button 
-                        onclick="humanizeText()"
-                        class="btn-gradient px-8 py-3 rounded-full text-white font-semibold inline-flex items-center space-x-2 hover-lift"
-                    >
-                        <i class="fas fa-magic"></i>
-                        <span>Humanize Text</span>
-                    </button>
+                    <div class="space-x-2">
+                        <button 
+                            onclick="humanizeText()"
+                            class="btn-gradient px-8 py-3 rounded-full text-white font-semibold inline-flex items-center space-x-2 hover-lift"
+                            id="humanizeBtn"
+                        >
+                            <i class="fas fa-magic"></i>
+                            <span>Humanize Text</span>
+                        </button>
+                        <button 
+                            onclick="clearBoth()"
+                            class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full text-white font-medium inline-flex items-center space-x-2 transition-colors"
+                        >
+                            <i class="fas fa-eraser"></i>
+                            <span>Clear</span>
+                        </button>
+                    </div>
                     <span id="wordCount" class="text-white/60 text-sm">0 words</span>
                 </div>
             </div>
@@ -309,6 +349,8 @@
     </footer>
 
     <script>
+        let currentOutput = '';
+
         function updateWordCount() {
             const text = document.getElementById('inputText').value;
             const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
@@ -322,11 +364,17 @@
             });
         }
 
+        function getWordCount() {
+            const text = document.getElementById('inputText').value;
+            return text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+        }
+
         function humanizeText() {
             const inputText = document.getElementById('inputText').value.trim();
+            const wordCount = getWordCount();
             
-            if (!inputText) {
-                alert('Please enter some text to humanize!');
+            if (wordCount < 30) {
+                alert('Please enter at least 30 words to humanize!');
                 return;
             }
 
@@ -335,16 +383,39 @@
             outputDiv.innerHTML = `
                 <div class="flex items-center justify-center h-full">
                     <div class="text-center">
-                        <div class="animate-spin w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                        <div class="flex justify-center gap-1 mb-4">
+                            <div class="spinner"></div>
+                            <div class="spinner"></div>
+                            <div class="spinner"></div>
+                        </div>
                         <p class="text-white/70">Humanizing your text...</p>
                     </div>
                 </div>
             `;
 
-            // Simulate processing time
-            setTimeout(() => {
-                // Simple text transformation (in real app, this would be AI processing)
-                const humanizedText = transformText(inputText);
+            // Disable humanize button during processing
+            const humanizeBtn = document.getElementById('humanizeBtn');
+            humanizeBtn.disabled = true;
+
+            // Send to API
+            fetch('https://536b6b121949.ngrok-free.app/webhook/humanizer_main', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    input: inputText
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('API Error');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const humanizedText = data.output;
+                currentOutput = humanizedText;
                 
                 // Show result with animation
                 outputDiv.innerHTML = `<div class="animate-fade-in-up">${humanizedText}</div>`;
@@ -375,56 +446,38 @@
                     scoreBar.style.width = `${currentScore}%`;
                     scoreText.textContent = `${currentScore}%`;
                 }, 50);
-                
-            }, 2000);
-        }
 
-        function transformText(text) {
-            // Simple text transformation to simulate humanization
-            // In a real app, this would be replaced with actual AI processing
-            
-            const transformations = [
-                // Add more natural transitions
-                [/\bHowever,/g, 'That said,'],
-                [/\bFurthermore,/g, 'What\'s more,'],
-                [/\bIn conclusion,/g, 'To wrap things up,'],
-                [/\bIt is important to note that/g, 'Worth mentioning is that'],
-                [/\bAdditionally,/g, 'Plus,'],
+                // Re-enable humanize button
+                humanizeBtn.disabled = false;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Service unavailable at the moment');
                 
-                // Make sentences more conversational
-                [/\. This/g, '. This'],
-                [/\bvery important\b/g, 'crucial'],
-                [/\bvery good\b/g, 'excellent'],
-                [/\bvery bad\b/g, 'terrible'],
+                // Reset UI
+                outputDiv.innerHTML = `
+                    <div class="flex items-center justify-center h-full text-white/50">
+                        <div class="text-center">
+                            <i class="fas fa-wand-magic-sparkles text-4xl mb-4 opacity-50"></i>
+                            <p>Your humanized text will appear here...</p>
+                        </div>
+                    </div>
+                `;
                 
-                // Add some variety to sentence starters
-                [/^The /gm, Math.random() > 0.5 ? 'The ' : 'This '],
-            ];
-            
-            let result = text;
-            transformations.forEach(([pattern, replacement]) => {
-                result = result.replace(pattern, replacement);
+                // Re-enable humanize button
+                humanizeBtn.disabled = false;
             });
-            
-            // Add some natural pauses and flow
-            result = result.replace(/\. ([A-Z])/g, (match, letter) => {
-                return Math.random() > 0.7 ? `. Well, ${letter.toLowerCase()}` : `. ${letter}`;
-            });
-            
-            return result;
         }
 
         function copyToClipboard() {
-            const outputText = document.getElementById('outputText').textContent;
-            
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(outputText).then(() => {
+                navigator.clipboard.writeText(currentOutput).then(() => {
                     showCopySuccess();
                 });
             } else {
                 // Fallback for older browsers
                 const textArea = document.createElement('textarea');
-                textArea.value = outputText;
+                textArea.value = currentOutput;
                 document.body.appendChild(textArea);
                 textArea.select();
                 document.execCommand('copy');
@@ -449,6 +502,30 @@
             }, 2000);
         }
 
+        function clearBoth() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('outputText').innerHTML = `
+                <div class="flex items-center justify-center h-full text-white/50">
+                    <div class="text-center">
+                        <i class="fas fa-wand-magic-sparkles text-4xl mb-4 opacity-50"></i>
+                        <p>Your humanized text will appear here...</p>
+                    </div>
+                </div>
+            `;
+            
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.disabled = true;
+            copyBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            copyBtn.classList.remove('hover:bg-white/20');
+            
+            const humanScore = document.getElementById('humanScore');
+            humanScore.classList.remove('opacity-100');
+            humanScore.classList.add('opacity-0');
+            
+            document.getElementById('wordCount').textContent = '0 words';
+            currentOutput = '';
+        }
+
         // Add some interactive elements on page load
         document.addEventListener('DOMContentLoaded', function() {
             // Add typing animation to hero text (simplified version)
@@ -462,6 +539,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98d8ca610553741b',t:'MTc2MDI5NTEwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
-
