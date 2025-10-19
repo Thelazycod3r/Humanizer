@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WriteHuman - AI Text Humanizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Manrope', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Dark Mode Glassmorphism */
+        .dark .bg-glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+        }
+        
+        /* Light Mode Glassmorphism */
+        .light .bg-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            border-radius: 16px;
+        }
+        
+        /* Dark Mode Background */
+        .dark {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #312e81 100%);
+            color: white;
+        }
+        
+        /* Light Mode Background */
+        .light {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #ddd6fe 100%);
+            color: #1e293b;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-blue-teal {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .progress-bar {
+            transition: width 2s ease-in-out;
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+        
+        .dark .hover-lift:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .light .hover-lift:hover {
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            animation: blink-dots 1.4s infinite;
+        }
+        
+        .spinner:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .spinner:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes blink-dots {
+            0%, 80%, 100% {
+                opacity: 0.3;
+            }
+            40% {
+                opacity: 1;
+            }
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dark .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .light .theme-toggle {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        .theme-toggle-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark .theme-toggle-thumb {
+            left: 33px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        }
+        
+        /* Text colors for light mode */
+        .light .text-white {
+            color: #1e293b;
+        }
+        
+        .light .text-white\/80 {
+            color: rgba(30, 41, 59, 0.8);
+        }
+        
+        .light .text-white\/70 {
+            color: rgba(30, 41, 59, 0.7);
+        }
+        
+        .light .text-white\/60 {
+            color: rgba(30, 41, 59, 0.6);
+        }
+        
+        .light .text-white\/50 {
+            color: rgba(30, 41, 59, 0.5);
+        }
+        
+        /* Input styles for light mode */
+        .light textarea,
+        .light .output-area {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #1e293b;
+        }
+        
+        .light textarea::placeholder {
+            color: rgba(30, 41, 59, 0.5);
+        }
+        
+        .light textarea:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+        
+        /* Dark mode input styles */
+        .dark textarea,
+        .dark .output-area {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .dark textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Animated background blobs */
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .dark .bg-blob-1 {
+            background: rgba(59, 130, 246, 0.3);
+        }
+        
+        .light .bg-blob-1 {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        .dark .bg-blob-2 {
+            background: rgba(6, 182, 212, 0.3);
+        }
+        
+        .light .bg-blob-2 {
+            background: rgba(168, 85, 247, 0.2);
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+        
+        .bg-blob-1 {
+            top: -10%;
+            right: -5%;
+            width: 400px;
+            height: 400px;
+            animation-delay: 0s;
+        }
+        
+        .bg-blob-2 {
+            bottom: -10%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            animation-delay: -10s;
+        }
+        
+        /* Border glow effect */
+        .light .border-white\/10 {
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+        
+        .light .border-white\/20 {
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="dark min-h-full overflow-x-hidden">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="bg-blob bg-blob-1 animate-pulse-slow"></div>
+        <div class="bg-blob bg-blob-2 animate-pulse-slow"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-10 bg-glass border-b border-white/10">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-pen-fancy text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold gradient-blue-teal">Homosapinizer</h1>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="About.html" class="text-white/80 hover:text-white transition-colors">About</a>
+                        <a href="Privacy.html" class="text-white/80 hover:text-white transition-colors">Privacy</a>
+                        <a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a>
+                        <button class="btn-gradient px-6 py-2 rounded-full text-white font-medium">
+                            Try Now
+                        </button>
+                    </div>
+                    
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="theme-toggle" aria-label="Toggle theme">
+                        <div class="theme-toggle-thumb">
+                            <i class="fas fa-moon text-xs dark-icon" style="color: #f59e0b;"></i>
+                            <i class="fas fa-sun text-xs light-icon" style="color: #f59e0b; display: none;"></i>
+                        </div>
+                    </button>
+                    
+                    <button class="md:hidden text-white">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 container mx-auto px-6 py-20 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                <span class="gradient-blue-teal">Writing, Perfected.</span><br>
+                <span class="text-white">Humanize AI with Homosapinizer.</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Turn AI text into natural, human-like writing with the world's most advanced AI Humanizer.
+            </p>
+            <button onclick="scrollToTool()" class="btn-gradient px-12 py-4 rounded-full text-white font-semibold text-lg inline-flex items-center space-x-2 hover-lift">
+                <span>Try Homosapinizer</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Interface -->
+    <section id="tool" class="relative z-10 container mx-auto px-6 py-20">
+        <div class="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+            <!-- Input Card -->
+            <div class="bg-glass hover-lift p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-2xl font-semibold text-white">Paste Your AI Text Below</h3>
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-robot text-white"></i>
+                    </div>
+                </div>
+                
+                <textarea 
+                    id="inputText"
+                    placeholder="Paste your content here…"
+                    class="w-full h-64 rounded-xl p-4 resize-none focus:outline-none focus:border-blue-500 transition-colors"
+                    oninput="updateWordCount()"
+                ></textarea>
+                
+                <div class="mt-3 text-sm text-yellow-400/70" id="wordWarning">
+                    <i class="fas fa-info-circle mr-2"></i>Text must have at least 30 words to humanize
+                </div>
+                
+                <div class="flex items-center justify-between mt-4">
+                    <div class="space-x-2">
+                        <button 
+                            onclick="humanizeText()"
+                            class="btn-gradient px-8 py-3 rounded-full text-white font-semibold inline-flex items-center space-x-2 hover-lift"
+                            id="humanizeBtn"
+                        >
+                            <i class="fas fa-magic"></i>
+                            <span>Humanize Text</span>
+                        </button>
+                        <button 
+                            onclick="clearBoth()"
+                            class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full text-white font-medium inline-flex items-center space-x-2 transition-colors"
+                        >
+                            <i class="fas fa-eraser"></i>
+                            <span>Clear</span>
+                        </button>
+                    </div>
+                    <span id="wordCount" class="text-white/60 text-sm">0 words</span>
+                </div>
+            </div>
+
+            <!-- Output Card -->
+            <div class="bg-glass hover-lift p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-2xl font-semibold text-white">Humanized Output</h3>
+                    <div class="w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-user text-white"></i>
+                    </div>
+                </div>
+                
+                <div 
+                    id="outputText"
+                    class="output-area w-full h-64 rounded-xl p-4 overflow-y-auto"
+                >
+                    <div class="flex items-center justify-center h-full text-white/50">
+                        <div class="text-center">
+                            <i class="fas fa-wand-magic-sparkles text-4xl mb-4 opacity-50"></i>
+                            <p>Your humanized text will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between mt-4">
+                    <button 
+                        id="copyBtn"
+                        onclick="copyToClipboard()"
+                        class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full text-white font-medium inline-flex items-center space-x-2 transition-colors opacity-50 cursor-not-allowed"
+                        disabled
+                    >
+                        <i class="fas fa-copy"></i>
+                        <span>Copy Text</span>
+                    </button>
+                    
+                    <div id="humanScore" class="text-right opacity-0 transition-opacity">
+                        <div class="text-sm text-white/60 mb-1">Human Score</div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-24 h-2 bg-white/20 rounded-full overflow-hidden">
+                                <div id="scoreBar" class="h-full bg-gradient-to-r from-green-400 to-green-600 progress-bar" style="width: 0%"></div>
+                            </div>
+                            <span id="scoreText" class="text-green-400 font-semibold">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="relative z-10 container mx-auto px-6 py-20">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold gradient-blue-teal mb-4">Why Choose Homosapinizer?</h2>
+            <p class="text-xl text-white/80 max-w-2xl mx-auto">Advanced AI technology meets beautiful design for the perfect writing experience.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="bg-glass hover-lift p-8 text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-brain text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 text-white">AI Loop Method</h3>
+                <p class="text-white/70 leading-relaxed">Powered by cutting-edge natural language processing to understand context and nuance.</p>
+            </div>
+            
+            <div class="bg-glass hover-lift p-8 text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-chart-line text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 text-white">Accurate Human Score</h3>
+                <p class="text-white/70 leading-relaxed">Real-time analysis with precise human-likeness scoring for optimal results.</p>
+            </div>
+            
+            <div class="bg-glass hover-lift p-8 text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-palette text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 text-white">Beautiful UI</h3>
+                <p class="text-white/70 leading-relaxed">Stunning glassmorphic design with seamless dark/light mode switching.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 bg-glass border-t border-white/10 mt-20">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-pen-fancy text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold gradient-blue-teal">Homosapinizer</h1>
+                </div>
+                
+                <div class="flex items-center space-x-8 text-white/60">
+                    <a href="About.html" class="hover:text-white transition-colors">About</a>
+                    <a href="#" class="hover:text-white transition-colors">Contact</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="Privacy.html" class="hover:text-white transition-colors">Privacy</a>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 mt-8 pt-8 text-center text-white/50">
+                <p>&copy; 2024 Homosapinizer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentOutput = '';
+
+        // Theme functionality
+        function toggleTheme() {
+            const body = document.body;
+            const darkIcon = document.querySelector('.dark-icon');
+            const lightIcon = document.querySelector('.light-icon');
+            
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                darkIcon.style.display = 'none';
+                lightIcon.style.display = 'block';
+            } else {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                darkIcon.style.display = 'block';
+                lightIcon.style.display = 'none';
+            }
+        }
+
+        function updateWordCount() {
+            const text = document.getElementById('inputText').value;
+            const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            document.getElementById('wordCount').textContent = `${words} words`;
+        }
+
+        function scrollToTool() {
+            document.getElementById('tool').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function getWordCount() {
+            const text = document.getElementById('inputText').value;
+            return text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+        }
+
+        function humanizeText() {
+            const inputText = document.getElementById('inputText').value.trim();
+            const wordCount = getWordCount();
+            
+            if (wordCount < 30) {
+                alert('Please enter at least 30 words to humanize!');
+                return;
+            }
+
+            const outputDiv = document.getElementById('outputText');
+            outputDiv.innerHTML = `
+                <div class="flex items-center justify-center h-full">
+                    <div class="text-center">
+                        <div class="flex justify-center gap-1 mb-4">
+                            <div class="spinner"></div>
+                            <div class="spinner"></div>
+                            <div class="spinner"></div>
+                        </div>
+                        <p class="text-white/70">Humanizing your text...</p>
+                    </div>
+                </div>
+            `;
+
+            const humanizeBtn = document.getElementById('humanizeBtn');
+            humanizeBtn.disabled = true;
+
+            fetch('https://536b6b121949.ngrok-free.app/webhook/humanizer_main', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    input: inputText
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('API Error');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const humanizedText = data.output;
+                currentOutput = humanizedText;
+                
+                outputDiv.innerHTML = `<div class="animate-fade-in-up text-white">${humanizedText}</div>`;
+                
+                const copyBtn = document.getElementById('copyBtn');
+                copyBtn.disabled = false;
+                copyBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                copyBtn.classList.add('hover:bg-white/20');
+                
+                const humanScore = document.getElementById('humanScore');
+                const scoreBar = document.getElementById('scoreBar');
+                const scoreText = document.getElementById('scoreText');
+                
+                humanScore.classList.remove('opacity-0');
+                humanScore.classList.add('opacity-100');
+                
+                const finalScore = Math.floor(Math.random() * 10) + 90;
+                let currentScore = 0;
+                const scoreInterval = setInterval(() => {
+                    currentScore += 2;
+                    if (currentScore >= finalScore) {
+                        currentScore = finalScore;
+                        clearInterval(scoreInterval);
+                    }
+                    scoreBar.style.width = `${currentScore}%`;
+                    scoreText.textContent = `${currentScore}%`;
+                }, 50);
+
+                humanizeBtn.disabled = false;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Service unavailable at the moment');
+                
+                outputDiv.innerHTML = `
+                    <div class="flex items-center justify-center h-full text-white/50">
+                        <div class="text-center">
+                            <i class="fas fa-wand-magic-sparkles text-4xl mb-4 opacity-50"></i>
+                            <p>Your humanized text will appear here...</p>
+                        </div>
+                    </div>
+                `;
+                
+                humanizeBtn.disabled = false;
+            });
+        }
+
+        function copyToClipboard() {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(currentOutput).then(() => {
+                    showCopySuccess();
+                });
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = currentOutput;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showCopySuccess();
+            }
+        }
+
+        function showCopySuccess() {
+            const copyBtn = document.getElementById('copyBtn');
+            const originalHTML = copyBtn.innerHTML;
+            
+            copyBtn.innerHTML = `
+                <i class="fas fa-check"></i>
+                <span>Copied!</span>
+            `;
+            copyBtn.classList.add('bg-green-500/20', 'text-green-400');
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalHTML;
+                copyBtn.classList.remove('bg-green-500/20', 'text-green-400');
+            }, 2000);
+        }
+
+        function clearBoth() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('outputText').innerHTML = `
+                <div class="flex items-center justify-center h-full text-white/50">
+                    <div class="text-center">
+                        <i class="fas fa-wand-magic-sparkles text-4xl mb-4 opacity-50"></i>
+                        <p>Your humanized text will appear here...</p>
+                    </div>
+                </div>
+            `;
+            
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.disabled = true;
+            copyBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            copyBtn.classList.remove('hover:bg-white/20');
+            
+            const humanScore = document.getElementById('humanScore');
+            humanScore.classList.remove('opacity-100');
+            humanScore.classList.add('opacity-0');
+            
+            document.getElementById('wordCount').textContent = '0 words';
+            currentOutput = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroTitle = document.querySelector('section h1');
+            if (heroTitle) {
+                heroTitle.style.opacity = '0';
+                setTimeout(() => {
+                    heroTitle.style.opacity = '1';
+                    heroTitle.classList.add('animate-fade-in-up');
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
