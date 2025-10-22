@@ -11,22 +11,39 @@
         body {
             box-sizing: border-box;
             font-family: 'Manrope', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
-        .bg-glass {
+        /* Dark Mode Glassmorphism */
+        .dark .bg-glass {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border-radius: 16px;
         }
         
-        .bg-glass-dark {
-            background: rgba(0, 0, 0, 0.1);
+        /* Light Mode Glassmorphism */
+        .light .bg-glass {
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
             border-radius: 16px;
+        }
+        
+        /* Dark Mode Background */
+        .dark {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #312e81 100%);
+            color: white;
+        }
+        
+        /* Light Mode Background */
+        .light {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #ddd6fe 100%);
+            color: #1e293b;
         }
         
         .gradient-bg {
@@ -79,23 +96,6 @@
             animation: pulse 2s ease-in-out infinite;
         }
         
-        .typing-animation {
-            overflow: hidden;
-            border-right: 2px solid #3b82f6;
-            white-space: nowrap;
-            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-        
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: #3b82f6; }
-        }
-        
         .progress-bar {
             transition: width 2s ease-in-out;
         }
@@ -106,7 +106,14 @@
         
         .hover-lift:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dark .hover-lift:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .light .hover-lift:hover {
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
         }
         
         .btn-gradient {
@@ -145,15 +152,94 @@
                 opacity: 1;
             }
         }
+        
+        /* Theme Button */
+        .theme-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        }
+        
+        .theme-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Text colors for light mode */
+        .light .text-white {
+            color: #1e293b;
+        }
+        
+        .light .text-white\/80 {
+            color: rgba(30, 41, 59, 0.8);
+        }
+        
+        .light .text-white\/70 {
+            color: rgba(30, 41, 59, 0.7);
+        }
+        
+        .light .text-white\/60 {
+            color: rgba(30, 41, 59, 0.6);
+        }
+        
+        .light .text-white\/50 {
+            color: rgba(30, 41, 59, 0.5);
+        }
+        
+        /* BUTTON TEXT - Always white in both themes */
+        .light button,
+        .light .btn-gradient,
+        .light .bg-white\/10 {
+            color: white !important;
+        }
+        
+        /* Input styles for light mode */
+        .light textarea,
+        .light .output-area {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #1e293b;
+        }
+        
+        .light textarea::placeholder {
+            color: rgba(30, 41, 59, 0.5);
+        }
+        
+        .light textarea:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+        
+        /* Dark mode input styles */
+        .dark textarea,
+        .dark .output-area {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .dark textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Border glow effect */
+        .light .border-white\/10 {
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+        
+        .light .border-white\/20 {
+            border-color: rgba(59, 130, 246, 0.3);
+        }
     </style>
 </head>
-<body class="min-h-full bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-x-hidden">
-    <!-- Animated Background -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow"></div>
-        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow" style="animation-delay: 1s;"></div>
-    </div>
-
+<body class="dark min-h-full overflow-x-hidden">
     <!-- Header -->
     <header class="relative z-10 bg-glass border-b border-white/10">
         <nav class="container mx-auto px-6 py-4">
@@ -165,18 +251,26 @@
                     <h1 class="text-2xl font-bold gradient-blue-teal">Homosapinizer</h1>
                 </div>
                 
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="Test.html" class="text-white/80 hover:text-white transition-colors">About</a>
-                    <a href="Privacy.html" class="text-white/80 hover:text-white transition-colors">Privacy</a>
-                    <a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a>
-                    <button class="btn-gradient px-6 py-2 rounded-full text-white font-medium">
-                        Try Now
+                <div class="flex items-center space-x-6">
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="About.html" class="text-white/80 hover:text-white transition-colors">About</a>
+                        <a href="Privacy.html" class="text-white/80 hover:text-white transition-colors">Privacy</a>
+                        <a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a>
+                        <button class="btn-gradient px-6 py-2 rounded-full text-white font-medium">
+                            Try Now
+                        </button>
+                    </div>
+                    
+                    <!-- Theme Button -->
+                    <button onclick="toggleTheme()" class="theme-button" aria-label="Toggle theme">
+                        <i class="fas fa-moon text-lg text-white dark-icon"></i>
+                        <i class="fas fa-sun text-lg text-white light-icon" style="display: none;"></i>
+                    </button>
+                    
+                    <button class="md:hidden text-white">
+                        <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
-                
-                <button class="md:hidden text-white">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
             </div>
         </nav>
     </header>
@@ -213,7 +307,7 @@
                 <textarea 
                     id="inputText"
                     placeholder="Paste your content here…"
-                    class="w-full h-64 bg-white/5 border border-white/20 rounded-xl p-4 text-white placeholder-white/50 resize-none focus:outline-none focus:border-blue-500 transition-colors"
+                    class="w-full h-64 rounded-xl p-4 resize-none focus:outline-none focus:border-blue-500 transition-colors"
                     oninput="updateWordCount()"
                 ></textarea>
                 
@@ -254,7 +348,7 @@
                 
                 <div 
                     id="outputText"
-                    class="w-full h-64 bg-white/5 border border-white/20 rounded-xl p-4 text-white overflow-y-auto"
+                    class="output-area w-full h-64 rounded-xl p-4 overflow-y-auto"
                 >
                     <div class="flex items-center justify-center h-full text-white/50">
                         <div class="text-center">
@@ -301,7 +395,7 @@
                 <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <i class="fas fa-brain text-white text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-semibold mb-4">AI Loop Method</h3>
+                <h3 class="text-2xl font-semibold mb-4 text-white">AI Loop Method</h3>
                 <p class="text-white/70 leading-relaxed">Powered by cutting-edge natural language processing to understand context and nuance.</p>
             </div>
             
@@ -309,7 +403,7 @@
                 <div class="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <i class="fas fa-chart-line text-white text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-semibold mb-4">Accurate Human Score</h3>
+                <h3 class="text-2xl font-semibold mb-4 text-white">Accurate Human Score</h3>
                 <p class="text-white/70 leading-relaxed">Real-time analysis with precise human-likeness scoring for optimal results.</p>
             </div>
             
@@ -317,8 +411,8 @@
                 <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <i class="fas fa-palette text-white text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-semibold mb-4">Beautiful UI</h3>
-                <p class="text-white/70 leading-relaxed">Give suggestion i mean this design is okay for now </p>
+                <h3 class="text-2xl font-semibold mb-4 text-white">Beautiful UI</h3>
+                <p class="text-white/70 leading-relaxed">Stunning glassmorphic design with seamless dark/light mode switching.</p>
             </div>
         </div>
     </section>
@@ -335,7 +429,7 @@
                 </div>
                 
                 <div class="flex items-center space-x-8 text-white/60">
-                    <a href="Test.html" class="hover:text-white transition-colors">About</a>
+                    <a href="About.html" class="hover:text-white transition-colors">About</a>
                     <a href="#" class="hover:text-white transition-colors">Contact</a>
                     <a href="#" class="hover:text-white transition-colors">Terms</a>
                     <a href="Privacy.html" class="hover:text-white transition-colors">Privacy</a>
@@ -343,13 +437,32 @@
             </div>
             
             <div class="border-t border-white/10 mt-8 pt-8 text-center text-white/50">
-                <p>&copy; All rights reserved humanizer has no name yet</p>
+                <p>&copy; 2024 Homosapinizer. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
         let currentOutput = '';
+
+        // Theme functionality
+        function toggleTheme() {
+            const body = document.body;
+            const darkIcon = document.querySelector('.dark-icon');
+            const lightIcon = document.querySelector('.light-icon');
+            
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                darkIcon.style.display = 'none';
+                lightIcon.style.display = 'block';
+            } else {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                darkIcon.style.display = 'block';
+                lightIcon.style.display = 'none';
+            }
+        }
 
         function updateWordCount() {
             const text = document.getElementById('inputText').value;
@@ -378,7 +491,6 @@
                 return;
             }
 
-            // Show loading state
             const outputDiv = document.getElementById('outputText');
             outputDiv.innerHTML = `
                 <div class="flex items-center justify-center h-full">
@@ -393,11 +505,9 @@
                 </div>
             `;
 
-            // Disable humanize button during processing
             const humanizeBtn = document.getElementById('humanizeBtn');
             humanizeBtn.disabled = true;
 
-            // Send to API
             fetch('https://536b6b121949.ngrok-free.app/webhook/humanizer_main', {
                 method: 'POST',
                 headers: {
@@ -417,16 +527,13 @@
                 const humanizedText = data.output;
                 currentOutput = humanizedText;
                 
-                // Show result with animation
-                outputDiv.innerHTML = `<div class="animate-fade-in-up">${humanizedText}</div>`;
+                outputDiv.innerHTML = `<div class="animate-fade-in-up text-white">${humanizedText}</div>`;
                 
-                // Enable copy button
                 const copyBtn = document.getElementById('copyBtn');
                 copyBtn.disabled = false;
                 copyBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                 copyBtn.classList.add('hover:bg-white/20');
                 
-                // Show and animate human score
                 const humanScore = document.getElementById('humanScore');
                 const scoreBar = document.getElementById('scoreBar');
                 const scoreText = document.getElementById('scoreText');
@@ -434,8 +541,7 @@
                 humanScore.classList.remove('opacity-0');
                 humanScore.classList.add('opacity-100');
                 
-                // Animate score
-                const finalScore = Math.floor(Math.random() * 10) + 90; // 90-99%
+                const finalScore = Math.floor(Math.random() * 10) + 90;
                 let currentScore = 0;
                 const scoreInterval = setInterval(() => {
                     currentScore += 2;
@@ -447,14 +553,12 @@
                     scoreText.textContent = `${currentScore}%`;
                 }, 50);
 
-                // Re-enable humanize button
                 humanizeBtn.disabled = false;
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('Service unavailable at the moment');
                 
-                // Reset UI
                 outputDiv.innerHTML = `
                     <div class="flex items-center justify-center h-full text-white/50">
                         <div class="text-center">
@@ -464,7 +568,6 @@
                     </div>
                 `;
                 
-                // Re-enable humanize button
                 humanizeBtn.disabled = false;
             });
         }
@@ -475,7 +578,6 @@
                     showCopySuccess();
                 });
             } else {
-                // Fallback for older browsers
                 const textArea = document.createElement('textarea');
                 textArea.value = currentOutput;
                 document.body.appendChild(textArea);
@@ -526,9 +628,7 @@
             currentOutput = '';
         }
 
-        // Add some interactive elements on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Add typing animation to hero text (simplified version)
             const heroTitle = document.querySelector('section h1');
             if (heroTitle) {
                 heroTitle.style.opacity = '0';
@@ -541,5 +641,3 @@
     </script>
 </body>
 </html>
-
-
