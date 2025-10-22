@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - WriteHuman</title>
+    <title>About Us - Homosapinizer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -11,14 +11,39 @@
         body {
             box-sizing: border-box;
             font-family: 'Manrope', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
-        .bg-glass {
+        /* Dark Mode Glassmorphism */
+        .dark .bg-glass {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border-radius: 16px;
+        }
+        
+        /* Light Mode Glassmorphism */
+        .light .bg-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            border-radius: 16px;
+        }
+        
+        /* Dark Mode Background */
+        .dark {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #312e81 100%);
+            color: white;
+        }
+        
+        /* Light Mode Background */
+        .light {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #ddd6fe 100%);
+            color: #1e293b;
         }
         
         .bg-glass-dark {
@@ -94,7 +119,14 @@
         
         .hover-lift:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dark .hover-lift:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .light .hover-lift:hover {
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
         }
         
         .btn-gradient {
@@ -138,9 +170,135 @@
             transform: translateX(-50%);
             z-index: 10;
         }
+        
+        /* Text colors for light mode */
+        .light .text-white {
+            color: #1e293b;
+        }
+        
+        .light .text-white\/80 {
+            color: rgba(30, 41, 59, 0.8);
+        }
+        
+        .light .text-white\/70 {
+            color: rgba(30, 41, 59, 0.7);
+        }
+        
+        .light .text-white\/60 {
+            color: rgba(30, 41, 59, 0.6);
+        }
+        
+        .light .text-white\/50 {
+            color: rgba(30, 41, 59, 0.5);
+        }
+        
+        /* BUTTON TEXT - Always white in both themes */
+        .light button,
+        .light .btn-gradient,
+        .light .bg-white\/10 {
+            color: white !important;
+        }
+        
+        /* Border glow effect */
+        .light .border-white\/10 {
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+        
+        .light .border-white\/20 {
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Theme Button */
+        .theme-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        }
+        
+        .theme-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 1.5rem;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            color: white;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        
+        .mobile-menu a:hover {
+            color: #3b82f6;
+        }
+        
+        .mobile-menu .btn-gradient {
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+        }
+        
+        /* Light mode mobile menu */
+        .light .mobile-menu {
+            background: rgba(224, 242, 254, 0.95);
+        }
+        
+        .light .mobile-menu a {
+            color: #1e293b;
+        }
+        
+        .light .mobile-menu a:hover {
+            color: #3b82f6;
+        }
+        
+        .light .mobile-menu .close-btn {
+            color: #1e293b;
+        }
     </style>
 </head>
-<body class="min-h-full bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-x-hidden">
+<body class="dark min-h-full overflow-x-hidden">
     <!-- Animated Background -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
         <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow"></div>
@@ -158,22 +316,44 @@
                     <h1 class="text-2xl font-bold gradient-blue-teal">Homosapinizer</h1>
                 </div>
                 
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-white/80 hover:text-white transition-colors">Home</a>
-                    <a href="About.html" class="text-blue-400 font-medium">About</a>
-                    <a href="Privacy.html" class="text-white/80 hover:text-white transition-colors">Privacy</a>
-                    <a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a>
-                    <button class="btn-gradient px-6 py-2 rounded-full text-white font-medium">
-                        Try Now
+                <div class="flex items-center space-x-6">
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="index.html" class="text-white/80 hover:text-white transition-colors">Home</a>
+                        <a href="About.html" class="text-blue-400 font-medium">About</a>
+                        <a href="Privacy.html" class="text-white/80 hover:text-white transition-colors">Privacy</a>
+                        <a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a>
+                        <button class="btn-gradient px-6 py-2 rounded-full text-white font-medium">
+                            Try Now
+                        </button>
+                    </div>
+                    
+                    <!-- Theme Button -->
+                    <button onclick="toggleTheme()" class="theme-button" aria-label="Toggle theme">
+                        <i class="fas fa-moon text-lg text-white dark-icon"></i>
+                        <i class="fas fa-sun text-lg text-white light-icon" style="display: none;"></i>
+                    </button>
+                    
+                    <button id="mobileMenuBtn" class="md:hidden text-white">
+                        <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
-                
-                <button class="md:hidden text-white">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
             </div>
         </nav>
     </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button class="close-btn" id="closeMenuBtn">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="index.html" onclick="closeMobileMenu()">Home</a>
+        <a href="About.html" onclick="closeMobileMenu()">About</a>
+        <a href="Privacy.html" onclick="closeMobileMenu()">Privacy</a>
+        <a href="#" onclick="closeMobileMenu()">Contact</a>
+        <button class="btn-gradient px-6 py-2 rounded-full text-white font-medium" onclick="closeMobileMenu()">
+            Try Now
+        </button>
+    </div>
 
     <!-- Hero Section -->
     <section class="relative z-10 container mx-auto px-6 py-20 text-center">
@@ -250,7 +430,7 @@
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold gradient-blue-teal mb-4">Meet Our Team</h2>
-                <p class="text-xl text-white/80 max-w-2xl mx-auto">The brilliant minds behind WriteHuman's revolutionary AI humanization technology.</p>
+                <p class="text-xl text-white/80 max-w-2xl mx-auto">The brilliant minds behind Homosapinizer's revolutionary AI humanization technology.</p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8">
@@ -400,12 +580,12 @@
     <section class="relative z-10 container mx-auto px-6 py-20">
         <div class="max-w-4xl mx-auto text-center">
             <div class="bg-glass p-12 hover-lift">
-                <h2 class="text-4xl font-bold gradient-blue-teal mb-6">Ready to Experience WriteHuman?</h2>
+                <h2 class="text-4xl font-bold gradient-blue-teal mb-6">Ready to Experience Homosapinizer?</h2>
                 <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-                    Join thousands of users who are already creating more human,we need to make this proffesional.
+                    Join thousands of users who are already creating more human, engaging content with our professional AI humanization tool.
                 </p>
                 <button class="btn-gradient px-12 py-4 rounded-full text-white font-semibold text-lg inline-flex items-center space-x-2 hover-lift">
-                    <span>TryHomosapinizer Now</span>
+                    <span>Try Homosapinizer Now</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
@@ -432,12 +612,55 @@
             </div>
             
             <div class="border-t border-white/10 mt-8 pt-8 text-center text-white/50">
-                <p>&copy; All rights reserved.</p>
+                <p>&copy; 2024 Homosapinizer. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Theme functionality
+        function toggleTheme() {
+            const body = document.body;
+            const darkIcon = document.querySelector('.dark-icon');
+            const lightIcon = document.querySelector('.light-icon');
+            
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                darkIcon.style.display = 'none';
+                lightIcon.style.display = 'block';
+            } else {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                darkIcon.style.display = 'block';
+                lightIcon.style.display = 'none';
+            }
+        }
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
         // Animate counters when they come into view
         function animateCounters() {
             const counters = document.querySelectorAll('[data-count]');
@@ -462,7 +685,7 @@
                             
                             if (counter.getAttribute('data-count') === '24') {
                                 counter.textContent = Math.floor(current) + '/7';
-                            } else if (counter.getAttribute('data-count') === '95') {
+                            } else if (counter.getAttribute('data-count') === '90') {
                                 counter.textContent = Math.floor(current) + '%';
                             } else {
                                 counter.textContent = Math.floor(current).toLocaleString();
@@ -492,6 +715,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98d8cd9ab028741b',t:'MTc2MDI5NTIzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
-
