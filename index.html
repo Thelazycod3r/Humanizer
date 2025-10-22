@@ -237,6 +237,76 @@
         .light .border-white\/20 {
             border-color: rgba(59, 130, 246, 0.3);
         }
+        
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 1.5rem;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            color: white;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        
+        .mobile-menu a:hover {
+            color: #3b82f6;
+        }
+        
+        .mobile-menu .btn-gradient {
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+        }
+        
+        /* Light mode mobile menu */
+        .light .mobile-menu {
+            background: rgba(224, 242, 254, 0.95);
+        }
+        
+        .light .mobile-menu a {
+            color: #1e293b;
+        }
+        
+        .light .mobile-menu a:hover {
+            color: #3b82f6;
+        }
+        
+        .light .mobile-menu .close-btn {
+            color: #1e293b;
+        }
     </style>
 </head>
 <body class="dark min-h-full overflow-x-hidden">
@@ -267,13 +337,26 @@
                         <i class="fas fa-sun text-lg text-white light-icon" style="display: none;"></i>
                     </button>
                     
-                    <button class="md:hidden text-white">
+                    <button id="mobileMenuBtn" class="md:hidden text-white">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
         </nav>
     </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button class="close-btn" id="closeMenuBtn">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="About.html" onclick="closeMobileMenu()">About</a>
+        <a href="Privacy.html" onclick="closeMobileMenu()">Privacy</a>
+        <a href="#" onclick="closeMobileMenu()">Contact</a>
+        <button class="btn-gradient px-6 py-2 rounded-full text-white font-medium" onclick="closeMobileMenu()">
+            Try Now
+        </button>
+    </div>
 
     <!-- Hero Section -->
     <section class="relative z-10 container mx-auto px-6 py-20 text-center">
@@ -444,6 +527,30 @@
 
     <script>
         let currentOutput = '';
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
 
         // Theme functionality
         function toggleTheme() {
